@@ -85,6 +85,7 @@ const submitPayment = () => {
     amount: selectedInvoice.value.paymentAmount,
     payment_method: selectedInvoice.value.paymentMethod,
     transaction_reference: selectedInvoice.value.transactionReference,
+    paid_at: selectedInvoice.value.paidAt,
   }
 
   $api(`/invoices/${selectedInvoice.value.id}/pay`, {
@@ -299,6 +300,10 @@ const submitPayment = () => {
               <AppTextField
                 v-model="selectedInvoice.transactionReference"
                 label="Reference Number"
+              />
+              <AppDateTimePicker
+                v-model="selectedInvoice.paidAt"
+                label="Paid At"
               />
             </form>
           </VCardText>

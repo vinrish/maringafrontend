@@ -91,6 +91,29 @@ const deleteCompany = async () => {
   })
 }
 
+const restoreCompany = async (id: number) => {
+  companyId.value = id
+  isConfirmDialogOpen.value = false
+  isDialogVisible.value = true
+
+  $api(`companies/${companyId.value}/restore`, {
+    method: 'POST',
+  }).then(response => {
+    if (response.message) {
+      snackbarMessage.value = response.message
+      isSnackbarScrollReverseVisible.value = true
+
+      fetchCompanies()
+    }
+  }).catch(response => {
+    snackbarMessage.value = response.message // 'Failed to restore company'
+    isSnackbarScrollReverseVisible.value = true
+    fetchCompanies()
+  }).finally(() => {
+    isDialogVisible.value = false
+  })
+}
+
 const onConfirmation = (id: number) => {
   companyId.value = id
   isConfirmDialogOpen.value = true
@@ -360,9 +383,9 @@ const onCancel = () => {
                 <VListItem
                   value="view"
                   prepend-icon="tabler-eye"
-                  :to="{ name: 'companies-view-id', params: { id: item.id } }"
+                  @click="restoreCompany(item.id)"
                 >
-                  View
+                  Restore
                 </VListItem>
 
                 <VListItem

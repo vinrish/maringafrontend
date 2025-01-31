@@ -224,7 +224,7 @@ const downloadPDF = () => {
                   <small>Transaction Reference</small>
                 </th>
                 <th>
-                  <small>Date Created</small>
+                  <small>Payment Date</small>
                 </th>
               </tr>
             </thead>
